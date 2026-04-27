@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islem</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1b0b2b;
+            color: #f8f0ff;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at top, rgba(255, 182, 193, 0.18), transparent 35%),
+                        radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.25), transparent 16%),
+                        linear-gradient(180deg, #2e0632 0%, #13020c 75%);
+            overflow-x: hidden;
+        }
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+        }
+        .hero {
+            display: grid;
+            gap: 1.5rem;
+            align-items: center;
+            grid-template-columns: minmax(0, 1.1fr) minmax(280px, 1fr);
+            margin-bottom: 2rem;
+        }
+        .hero-text {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 30px;
+            backdrop-filter: blur(16px);
+        }
+        h1 {
+            margin: 0;
+            font-size: clamp(3rem, 4vw, 4.5rem);
+            line-height: 0.95;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        h2 {
+            margin: 0 0 1rem;
+            font-size: clamp(1.4rem, 2vw, 2rem);
+            color: #ffd7ff;
+        }
+        .hero-text p {
+            margin: 1rem 0;
+            font-size: 1.15rem;
+            line-height: 1.75;
+            max-width: 44rem;
+        }
+        .music-button {
+            margin-top: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.3rem;
+            border: 1px solid rgba(255,255,255,0.22);
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .music-button:hover {
+            transform: translateY(-1px);
+            background: rgba(255,255,255,0.14);
+        }
+        .music-note {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            opacity: 0.65;
+            animation: pulse 2.5s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        .hero-image {
+            position: relative;
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+            border-radius: 32px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.14);
+            overflow: hidden;
+            min-height: 420px;
+        }
+        .hero-image::before,
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.85;
+        }
+        .hero-image::before {
+            width: 220px;
+            height: 220px;
+            background: rgba(255, 142, 246, 0.35);
+            top: -50px;
+            right: 10%;
+        }
+        .hero-image::after {
+            width: 160px;
+            height: 160px;
+            background: rgba(145, 198, 255, 0.28);
+            bottom: -35px;
+            left: 12%;
+        }
+        .hero-image img {
+            width: 100%;
+            max-width: 460px;
+            border-radius: 28px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+            position: relative;
+            z-index: 1;
+            transform: translateY(-5px);
+        }
+        .gallery {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+        .photo {
+            position: relative;
+            overflow: hidden;
+            border-radius: 26px;
+            border: 1px solid rgba(255,255,255,0.14);
+            background: rgba(255,255,255,0.05);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+        .photo:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 28px 60px rgba(0,0,0,0.3);
+        }
+        .photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .caption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 1rem;
+            background: linear-gradient(180deg, transparent, rgba(0,0,0,0.55));
+            color: #fff;
+            font-weight: 600;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+        }
+        .sparkle {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            opacity: 0.85;
+            animation: float 8s infinite ease-in-out;
+        }
+        .sparkle:nth-child(1) { top: 18%; left: 8%; animation-duration: 7s; }
+        .sparkle:nth-child(2) { top: 35%; right: 10%; animation-duration: 9s; }
+        .sparkle:nth-child(3) { bottom: 20%; left: 16%; animation-duration: 10s; }
+        .sparkle:nth-child(4) { bottom: 15%; right: 18%; animation-duration: 6.5s; }
+        @keyframes float {
+            0%,100% { transform: translateY(0) scale(1); opacity: 0.85; }
+            50% { transform: translateY(-18px) scale(1.2); opacity: 1; }
+        }
+        @media (max-width: 840px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .hero-image {
+                min-height: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="hero">
+            <div class="hero-text">
+                <h1>Pour Islem</h1>
+                <h2>Mon cœur parle à travers ces images</h2>
+                <p>Islem, chaque photo est une déclaration : je t'aime, je pense à toi, et je rêve de toi chaque seconde.</p>
+                <p>Tu es la lumière qui guide mes jours. Avec toi, tout devient plus beau, plus doux, plus vrai.</p>
+                <p>Je te promets mon amitié, mon soutien, et mon amour, aujourd'hui et pour toujours.</p>
+                <button id="playMusic" class="music-button" type="button">Démarrer la musique</button>
+            </div>
+            <div class="hero-image">
+                <img src="1776014797103.png" alt="Photo principale d'Islem">
+            </div>
+        </div>
+        <div class="gallery">
+            <div class="photo"><img src="1772759774950.png" alt="Photo 1"><div class="caption">Rêve rose</div></div>
+            <div class="photo"><img src="1773090552708.png" alt="Photo 2"><div class="caption">Énergie douce</div></div>
+            <div class="photo"><img src="1000002855-removebg-preview.png" alt="Photo 3"><div class="caption">Lueur enchantée</div></div>
+            
+            <div class="photo"><img src="Screenshot_20260305_150354_Instagram.jpg" alt="Photo 5"><div class="caption">Souvenir brillant</div></div>
+            <div class="photo"><img src="Screenshot_20260305_150506_Instagram.jpg" alt="Photo 6"><div class="caption">Cœur en fête</div></div>
+            <div class="photo"><img src="Snapchat-18988224.jpg" alt="Photo 7"><div class="caption">Fleur de lumière</div></div>
+            <div class="photo"><img src="Snapchat-1928940295.jpg" alt="Photo 8"><div class="caption">Nuances magiques</div></div>
+            <div class="photo"><img src="Snapchat-28287539.jpg" alt="Photo 9"><div class="caption">Aventure dorée</div></div>
+            <div class="photo"><img src="Snapchat-401053760.jpg" alt="Photo 10"><div class="caption">Arc-en-ciel secret</div></div>
+        </div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+    </div>
+    <div class="music-note">🎵</div>
+    <audio id="loveSong" src="Ahla Qarar- Amr Gaber _ عمرو جابر - أحلي قرار (وانا معاك انا مش بفكر)(MP3_160K).mp3" loop preload="auto"></audio>
+    <script>
+        const audio = document.getElementById('loveSong');
+        const playButton = document.getElementById('playMusic');
+        function startMusic() {
+            audio.play().catch(() => {
+                playButton.style.display = 'inline-flex';
+            });
+        }
+        window.addEventListener('load', () => {
+            startMusic();
+        });
+        playButton.addEventListener('click', () => {
+            audio.play();
+            playButton.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
